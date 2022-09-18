@@ -155,11 +155,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EigSys_JcbAgrm.cpp" />
+    <ClCompile Include="EigSym_JcbAgrm.cpp" />
     <ClCompile Include="JacobianRotationAlgorithm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EigSys_JcbAgrm.h" />
+    <ClInclude Include="EigSym_JcbAgrm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

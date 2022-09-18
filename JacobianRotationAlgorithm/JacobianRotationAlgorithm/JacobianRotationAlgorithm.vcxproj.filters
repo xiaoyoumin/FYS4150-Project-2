@@ -18,12 +18,12 @@
     <ClCompile Include="JacobianRotationAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EigSys_JcbAgrm.cpp">
+    <ClCompile Include="EigSym_JcbAgrm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EigSys_JcbAgrm.h">
+    <ClInclude Include="EigSym_JcbAgrm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
