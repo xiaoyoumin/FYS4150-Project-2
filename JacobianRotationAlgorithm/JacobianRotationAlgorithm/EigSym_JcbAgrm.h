@@ -18,7 +18,7 @@ public:
 	void set_A(mat A);
 	int get_n();
 	void set_n(int n);
-	double max_offdiag_symmetric(int& k, int &l);
+	double max_offdiag_symmetric(int& k, int &l); //question 3a
 	
 
 };

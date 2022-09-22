@@ -2,14 +2,26 @@
 //
 
 #include <iostream>
-#include <armadillo>
+#include <string>
+//#include <armadillo>
+
+#include "Tester.h"
+//#include "EigSym_JcbAgrm.h"
 
 using namespace std;
-using namespace arma;
+//using namespace arma;
 
 int main()
 {
-    std::cout << "Arma version:" << arma_version::as_string();
+	mat A = { {1,0,0,0.5},
+			{0,1,-0.7,0},
+			{0,-0.7,1,0},
+			{0.5,1,0,1} };
+
+	cout << det(A) << endl;
+	//Tester::test_max_offdiag_symmetric(A);
+
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

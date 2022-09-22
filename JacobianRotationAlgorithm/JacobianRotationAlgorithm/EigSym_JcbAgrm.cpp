@@ -4,14 +4,19 @@
 
 using namespace std;
 
+class UnSymException :public exception
+{
+public:
+	UnSymException(string str) :exception(str.c_str()) {}
+};
 
 
 EigSym_JcbAgrm::EigSym_JcbAgrm(mat A, int n)
 {
+	this->n = n;
 	if (sym_check(A))
 		this->A = A;
-	else this->A = 0.0;
-	this->n = n;
+	else throw UnSymException("Only symmetric matrix is allowed");
 }
 
 bool EigSym_JcbAgrm::sym_check(mat A)
@@ -39,7 +44,7 @@ void EigSym_JcbAgrm::set_A(mat A)
 {
 	if(sym_check(A))
 		this->A = A;
-	else this->A = 0.0;
+	else throw UnSymException("Only symmetric matrix is allowed");
 }
 
 int EigSym_JcbAgrm::get_n()
@@ -60,7 +65,7 @@ double EigSym_JcbAgrm::max_offdiag_symmetric(int& k, int &l)
 	double max=0;
 	for (i = 0; i < n - 1; i++)
 		for (j = i + 1; j < n; j++)
-			if (abs(A(i, j)) > max)
+			if (abs(A(i, j)) > abs(max))
 			{
 				max = A(i, j);
 				k = i; //row index

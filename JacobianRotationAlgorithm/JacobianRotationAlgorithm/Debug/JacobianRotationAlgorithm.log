@@ -1,4 +1,10 @@
 ﻿  EigSym_JcbAgrm.cpp
   JacobianRotationAlgorithm.cpp
+  Tester.cpp
   Generating Code...
-  JacobianRotationAlgorithm.vcxproj -> G:\UIO_courses\FYS4150\FYS4150-Project-2\JacobianRotationAlgorithm\Debug\JacobianRotationAlgorithm.exe
+JacobianRotationAlgorithm.obj : error LNK2019: unresolved external symbol _sgetrf_ referenced in function "void __cdecl arma::lapack::getrf<double>(int *,int *,double *,int *,int *,int *)" (??$getrf@N@lapack@arma@@YAXPAH0PAN000@Z)
+JacobianRotationAlgorithm.obj : error LNK2019: unresolved external symbol _dgetrf_ referenced in function "void __cdecl arma::lapack::getrf<double>(int *,int *,double *,int *,int *,int *)" (??$getrf@N@lapack@arma@@YAXPAH0PAN000@Z)
+JacobianRotationAlgorithm.obj : error LNK2019: unresolved external symbol _cgetrf_ referenced in function "void __cdecl arma::lapack::getrf<double>(int *,int *,double *,int *,int *,int *)" (??$getrf@N@lapack@arma@@YAXPAH0PAN000@Z)
+JacobianRotationAlgorithm.obj : error LNK2019: unresolved external symbol _zgetrf_ referenced in function "void __cdecl arma::lapack::getrf<double>(int *,int *,double *,int *,int *,int *)" (??$getrf@N@lapack@arma@@YAXPAH0PAN000@Z)
+lib_win64\libopenblas.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+G:\UIO_courses\FYS4150\FYS4150-Project-2\JacobianRotationAlgorithm\Debug\JacobianRotationAlgorithm.exe : fatal error LNK1120: 4 unresolved externals
