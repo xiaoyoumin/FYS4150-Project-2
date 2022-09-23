@@ -8,18 +8,10 @@ void test_max_offdiag_symmetric(mat A) //question 3b
 {
 	int k, l;
 	double max;
-	try
-	{
-		sym_check(A, arma::size(A).n_rows);
-	}
-	catch (exception& e)
-	{
-		cout << "ERROR: " << e.what() << "\n";
-		exit(-1);
-	}
+	
 	max = max_offdiag_symmetric(A, k, l);
 
-	A.print("A:");
+	A.print("Problem 3:\n test matrix =");
 	cout << "The element with largest abs at upper diagonal is:" << "\n";
 	cout << "A(" << k << ", " << l << ") = " << max << "\n";
 }
@@ -35,15 +27,7 @@ void test_jacobi_eigensolver()
 	bool converged;
 	mat A = create_tridiagonal(n, a, d, a);
 	A.print("A:");
-	try
-	{
-		sym_check(A, arma::size(A).n_rows);
-	}
-	catch (exception& e)
-	{
-		cout << "ERROR: " << e.what() << "\n";
-		exit(-1);
-	}
+	cout << endl << endl;
 
 	jacobi_eigensolver(A, eps, eigvals, eigvecs, maxiter, iterations, converged);
 	if (converged)
@@ -57,7 +41,7 @@ void test_jacobi_eigensolver()
 
 	A = create_tridiagonal(n, a, d, a);
 	eig_sym(eigvals, eigvecs, A);
-	eigvecs.print("correct eigvecs:");
+	eigvecs.print("correct eigvecs from Armadillo:");
 	cout << endl;
 	eigvals.print("eigvals:");
 	cout << endl << endl;

@@ -63,7 +63,16 @@ mat create_tridiagonal(int n, double a, double d, double e)
 void jacobi_eigensolver(mat& A, double eps, vec& eigenvalues, mat& eigenvectors,
 	const int maxiter, int& iterations, bool& converged)
 {
-	mat A_new = A;
+	try
+	{
+		sym_check(A, arma::size(A).n_rows);
+	}
+	catch (exception& e)
+	{
+		cout << "ERROR: " << e.what() << "\n";
+		exit(-1);
+	}
+
 	int n = arma::size(A).n_rows;
 	int k, l;  //row, col
 
