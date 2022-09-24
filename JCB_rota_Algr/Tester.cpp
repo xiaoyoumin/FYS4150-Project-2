@@ -39,7 +39,6 @@ void test_jacobi_eigensolver()
 	}
 	else cout << "Unconverged within " << maxiter << "iterations\n";
 
-	A = create_tridiagonal(n, a, d, a);
 	eig_sym(eigvals, eigvecs, A);
 	eigvecs.print("correct eigvecs from Armadillo:");
 	cout << endl;

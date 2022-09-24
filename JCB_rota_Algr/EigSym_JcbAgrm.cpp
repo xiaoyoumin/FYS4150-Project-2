@@ -60,7 +60,7 @@ mat create_tridiagonal(int n, double a, double d, double e)
 	return A;
 }
 
-void jacobi_eigensolver(mat& A, double eps, vec& eigenvalues, mat& eigenvectors,
+void jacobi_eigensolver(const mat& A, double eps, vec& eigenvalues, mat& eigenvectors,
 	const int maxiter, int& iterations, bool& converged)
 {
 	try
@@ -75,19 +75,17 @@ void jacobi_eigensolver(mat& A, double eps, vec& eigenvalues, mat& eigenvectors,
 
 	int n = arma::size(A).n_rows;
 	int k, l;  //row, col
+	mat A_temp = A;
 
 	eigenvectors = mat(n, n, fill::eye);
 	eigenvalues = zeros(n);
 
 	iterations = 0;
 
-	//max_offdiag_symmetric(A, k, l);
-
-	while (max_offdiag_symmetric(A, k, l) > eps && iterations < maxiter)
+	while (max_offdiag_symmetric(A_temp, k, l) > eps && iterations < maxiter)
 	{
-		jacobi_rotate(A, eigenvectors, k, l);
+		jacobi_rotate(A_temp, eigenvectors, k, l);
 		iterations++;
-		//max_offdiag_symmetric(A, k, l);
 	}
 
 	if (iterations == maxiter) converged = false;
@@ -95,7 +93,7 @@ void jacobi_eigensolver(mat& A, double eps, vec& eigenvalues, mat& eigenvectors,
 	{
 		converged = true;
 		for (int i = 0; i < n; i++)
-			eigenvalues(i) = A(i, i);
+			eigenvalues(i) = A_temp(i, i);
 	}
 }
 
