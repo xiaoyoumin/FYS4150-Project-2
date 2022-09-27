@@ -19,7 +19,7 @@ double max_offdiag_symmetric(const arma::mat& A, int &k, int &l)        //to cre
     int cols =  A.n_cols;                               // coloumns
     
     if (rows!= cols){                                   //checking if dimensions match
-        std::cout << "Dimensions are not equal!";
+        std::cout << "Dimensions are not equal!, not an identity matrix!";
         }
 
     int a = 0;
@@ -37,9 +37,26 @@ double max_offdiag_symmetric(const arma::mat& A, int &k, int &l)        //to cre
         } 
 
         
-    cout << "matrix indicies: " << "(\\k , \\l)";
+    cout << "matrix indicies: " << "(\\k , \\l)";            //printing our largest off diagonal elements position 
     cout << "Largest value in matrix is: " << "\\a";         //printing out our largest off diagonal value
-    return a;                                            //returning the value to whomever called the function (double data type)
+
+    return a;                                                //returns the value of the matrix element (largest off diagonal value)
     }
 
 
+
+                                                                    
+int main(){                                                 //testing with matrix A from task yo
+
+    double A[] = {{1, 0, 0,0.5},
+        {0, 1, -0.7, 0},
+        {0, -0.7, 1, 0},
+        {0.5, 0, 0, 1}
+        }; 
+
+    int k, l;
+
+    double max = max_offdiag_symmetric(A, k, l);
+
+    return 0;
+}
