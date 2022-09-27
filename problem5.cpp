@@ -8,6 +8,10 @@ using namespace std;
 
 double offdiag(mat& A, int& p, int& q, int N); //declare+import our function from proble3.cpp
 
+int main(){
+    //we want to create and fill our matrices
+}
+
 
 //including our task 3 function
 double max_offdiag_symmetric(arma::mat A, int &k, int &l)        //to create a return type double taking in matrix A and int k, l
