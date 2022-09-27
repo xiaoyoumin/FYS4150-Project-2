@@ -2,6 +2,8 @@
 #include<iostream>
 #include<fstream>
 #include<cmath>
+#define _USE_MATH_DEFINES
+#include<math.h>
 
 using namespace std;
 
@@ -13,60 +15,58 @@ arma::mat tridiag(arma::vec a, arma::vec b, arma::vec c) {
 	return A;
 }
 
-bool eigvalTest(arma::vec eigval, double d, double a){
-    int N=eigval.n_elem;
-    for (int i=1; i<=eigval.n_elem;i++){
-        if (abs(eigval(i-1)-(d+2*a*cos(i * M_PI/(N+1))))>1e-6){
-            return false;
-        }
+void eigvalTest(arma::vec& eigval, double d, double a, int N) {
+	int n = N + 1;
+	int i;
+	for ( i = 1; i <= N; i++) {
+		eigval(i - 1) = d + 2 * a*cos((i*M_PI) / n);
 
-    }
-    return true;
+	}
 }
-bool eigvecTest(arma::mat eigvec, double d, double a){
-    int N=eigvec.n_elem;
-    for (int i=1; i<=eigvec.n_elem;i++){
-        for (int f=1; i<=eigvec.n_elem;i++){
-            if (abs(eigvec(f-1,i-1)-(sin(f* i * M_PI/(N+1))))>1e-6){
-                return false;
-            }
-        }
-    }
-    return true;
+void eigvecTest(arma::mat& eigvec, double d, double a, int N) {
+	int n = N + 1;
+	int i;
+	for (i = 1; i <= N; i++) {
+		for (int f = 1; f <= N; f++) {
+			eigvec(i - 1, f - 1) = sin((i*f*M_PI) / n);
+		}
+	}
 }
 
 int main()
 {
-    double h=1;
-    double ad=(-1/(h*h));
-    double dd=(2/(h*h));
+	double h = 1;
+	double ad = (-1 / (h*h));
+	double dd = (2 / (h*h));
 
 	arma::vec a(5);
 	a.ones();
-    a=a*ad;
+	a = a * ad;
 
 	arma::vec d(6);
 	d.ones();
 	d = d * dd;
 
 	arma::mat A = tridiag(a, d, a);
-	A.print("A=");
 
-    
 	arma::vec eigval;
 	arma::mat eigvec;
 	arma::eig_sym(eigval, eigvec, A);
 
 	eigvec = normalise(eigvec);
-	eigvec.print("correct normalized eigvecs from Armadillo:");
+	eigvec.print("Armadillo eigvecs:");
 	cout << endl;
-	eigval.print("eigvals:");
+	eigval.print("Armadillo eigvals:");
 	cout << endl << endl;
 
-    cout<<"Eigval corresponds with analytical solution: ";
-    cout<<to_string(eigvalTest(eigval, dd, ad))<<endl;
-    cout<<"Eigvec corresponds with analytical solution: ";
-    cout<<to_string(eigvecTest(eigvec, dd, ad))<<endl;
+	int N = 6;
+	eigvalTest(eigval, 2.0, -1.0, N);
+	eigvecTest(eigvec, 2.0, -1.0, N);
 
+	eigvec = normalise(eigvec);
+	eigvec.print("Analytical normalized eigvecs");
+	cout << endl;
+	eigval.print("Analytical eigvals:");
+	cout << endl << endl;
 
 }
