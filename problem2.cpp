@@ -13,30 +13,46 @@ arma::mat tridiag(arma::vec a, arma::vec b, arma::vec c) {
 	return A;
 }
 
+bool eigvalTest(arma::vec eigval, double d, double a){
+    int N=eigval.n_elem;
+    for (int i=1; i<=eigval.n_elem;i++){
+        if (abs(eigval(i-1)-(d+2*a*cos(i * M_PI/(N+1))))>1e-6){
+            return false;
+        }
+
+    }
+    return true;
+}
+bool eigvecTest(arma::mat eigvec, double d, double a){
+    int N=eigvec.n_elem;
+    for (int i=1; i<=eigvec.n_elem;i++){
+        for (int f=1; i<=eigvec.n_elem;i++){
+            if (abs(eigvec(f-1,i-1)-(sin(f* i * M_PI/(N+1))))>1e-6){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 int main()
 {
+    double h=1;
+    double ad=(-1/(h*h));
+    double dd=(2/(h*h));
+
 	arma::vec a(5);
 	a.ones();
+    a=a*ad;
 
-	arma::vec b(6);
-	b.ones();
-	b = b * 2;
+	arma::vec d(6);
+	d.ones();
+	d = d * dd;
 
-	arma::vec c(5);
-	c.ones();
-	c = c * 3;
-
-	arma::mat A = tridiag(a, b, c);
+	arma::mat A = tridiag(a, d, a);
 	A.print("A=");
 
-	/*
-	for (int f = 0; f <= sqrt(A.n_elem) - 1; f++) {
-		for (int i = 0; i <= sqrt(A.n_elem) - 1; i++) {
-			cout << to_string(A(f, i)) + " ";
-		}
-		cout << endl;
-	}
-	*/
+    
 	arma::vec eigval;
 	arma::mat eigvec;
 	arma::eig_sym(eigval, eigvec, A);
@@ -46,5 +62,11 @@ int main()
 	cout << endl;
 	eigval.print("eigvals:");
 	cout << endl << endl;
+
+    cout<<"Eigval corresponds with analytical solution: ";
+    cout<<to_string(eigvalTest(eigval, dd, ad))<<endl;
+    cout<<"Eigvec corresponds with analytical solution: ";
+    cout<<to_string(eigvecTest(eigvec, dd, ad))<<endl;
+
 
 }
