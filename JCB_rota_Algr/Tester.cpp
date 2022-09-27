@@ -18,21 +18,24 @@ void test_max_offdiag_symmetric(mat A) //question 3b
 
 void test_jacobi_eigensolver()
 {
-	int n = 6;
-	double a = -1, d = 2;
+	int N = 6;
+	int n = N + 1;
+	double h = 1.0 / n;
+	double a = -1 / pow(h, 2), d = 2 / pow(h, 2);
 	double eps = pow(10, -8);
 	vec eigvals;
-	mat eigvecs = mat(n, n, fill::eye);
+	mat eigvecs = mat(N, N, fill::eye);
 	int maxiter = 1000, iterations = 0;
 	bool converged;
-	mat A = create_tridiagonal(n, a, d, a);
+	mat A = create_tridiagonal(N, a, d, a);
 	A.print("A:");
 	cout << endl << endl;
 
 	jacobi_eigensolver(A, eps, eigvals, eigvecs, maxiter, iterations, converged);
 	if (converged)
 	{
-		eigvecs.print("Self defined JCB rotation algr result: eigvecs");
+		eigvecs = normalise(eigvecs);
+		eigvecs.print("Self defined JCB rotation algr result: normalized eigvecs");
 		cout << endl;
 		eigvals.print("eigvals:");
 		cout << endl << endl;
@@ -40,7 +43,8 @@ void test_jacobi_eigensolver()
 	else cout << "Unconverged within " << maxiter << "iterations\n";
 
 	eig_sym(eigvals, eigvecs, A);
-	eigvecs.print("correct eigvecs from Armadillo:");
+	eigvecs = normalise(eigvecs);
+	eigvecs.print("correct normalized eigvecs from Armadillo:");
 	cout << endl;
 	eigvals.print("eigvals:");
 	cout << endl << endl;
