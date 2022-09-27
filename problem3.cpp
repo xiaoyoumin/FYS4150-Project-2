@@ -46,9 +46,9 @@ double max_offdiag_symmetric(const arma::mat& A, int &k, int &l)        //to cre
 
 
                                                                     
-int main(){                                                 //testing with matrix A from task yo
+int main(){                                                 //testing with matrix A from task 3b yo
 
-    double A[] = {{1, 0, 0,0.5},
+    mat A[] = {{1, 0, 0,0.5},
         {0, 1, -0.7, 0},
         {0, -0.7, 1, 0},
         {0.5, 0, 0, 1}
