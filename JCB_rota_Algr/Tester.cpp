@@ -1,5 +1,7 @@
 #include "Tester.h"
 #include <iostream>
+#define _USE_MATH_DEFINES
+#include<math.h>
 
 using namespace std;
 using namespace arma;
@@ -16,7 +18,7 @@ void test_max_offdiag_symmetric(mat A) //question 3b
 	cout << "A(" << k << ", " << l << ") = " << max << "\n";
 }
 
-void test_jacobi_eigensolver()
+void test_jacobi_eigensolver() // problem 4b here
 {
 	int N = 6;
 	int n = N + 1;
@@ -49,18 +51,25 @@ void test_jacobi_eigensolver()
 	eigvals.print("eigvals:");
 	cout << endl << endl;
 
+
+	AnalyticalSols(eigvals, eigvecs, a, d, N);
+	eigvecs = normalise(eigvecs);
+	eigvecs.print("Analytical normalized eigvecs:");
+	cout << endl;
+	eigvals.print("eigvals:");
+	cout << endl << endl;
 }
 
-/*
-void Tester::check_eig_match_anly(mat A) //question 2
+void AnalyticalSols(vec& eigval, mat& eigvec, double a, double d, int N)
 {
-	vec eigval;
-	mat eigvec;
-	eig_sym(eigval, eigvec, A);
-}
+	int i, j;
+	int n = N + 1;
+	for (i = 1; i <= N; i++)
+	{
+		eigval(i-1) = d + 2 * a*cos((i*M_PI) / n);
+		for (j = 1; j <= N; j++) {
+			eigvec(i - 1, j - 1) = sin((i*j*M_PI) / n);
+		}
+	}
 
-void Tester::calc_anly_Sol(vec &eigval, mat &eigvec, double a, double d, mat A, int N) //question 2
-{
-
 }
-*/
