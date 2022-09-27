@@ -78,3 +78,5 @@ void jacobi_rotate(mat& A, mat& R, int k, int l)
 		R(i, k) = R(i, k)*c - R(i, l)*s;
 		R(i, l) = R(i, l)*c + temp*s;
 	}
+
+//eigen value
