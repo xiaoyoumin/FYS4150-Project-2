@@ -12,7 +12,7 @@ using namespace std;
 // returns the value of this matrix element
 
 
-double max_offdiag_symmetric(const arma::mat& A, int& k, int &l)        //to create a return type double taking in matrix A and int k, l
+double max_offdiag_symmetric(const arma::mat& A, int &k, int &l)        //to create a return type double taking in matrix A and int k, l
 {
  
     int rows = A.n_rows;                                // rows  
@@ -29,15 +29,17 @@ double max_offdiag_symmetric(const arma::mat& A, int& k, int &l)        //to cre
             if (i!= j){                                  //making sure its off-diagonal element
                 if (abs(A(i,j)) > a ){                   
                     double a = abs(A(i,j));              //updating our largest off value = a
-                    int k = i;                            //
-                    int l = j; 
+                    int k = i;                           //row number
+                    int l = j;                           //coloumn number
                     }
                 }
             }
         } 
 
         
-    cout << "matrix indicies: " << "(\\l , \\k)";
+    cout << "matrix indicies: " << "(\\k , \\l)";
     cout << "Largest value in matrix is: " << "\\a";         //printing out our largest off diagonal value
     return a;                                            //returning the value to whomever called the function (double data type)
     }
+
+
