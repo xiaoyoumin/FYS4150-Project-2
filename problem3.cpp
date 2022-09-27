@@ -37,7 +37,7 @@ double max_offdiag_symmetric(const arma::mat& A, int& k, int &l)        //to cre
         } 
 
         
-    cout << "position is :" << "(\\l , \\k)";
-    cout << "Largest value in matrix is: " << a;         //printing out our largest off diagonal value
+    cout << "matrix indicies: " << "(\\l , \\k)";
+    cout << "Largest value in matrix is: " << "\\a";         //printing out our largest off diagonal value
     return a;                                            //returning the value to whomever called the function (double data type)
     }
