@@ -17,11 +17,9 @@ int main(){
 
     int rows =  sizeof ary / sizeof mat[0]; // rows  
     int cols = sizeof mat[0] / sizeof(int); // cols
-    int a = 0
+    float a = 0
     for (int i = 0; i < rows; i++) { 
-        i = i;
         for (int j = 0; j < cols; j++) {
-            j = j;
             if (i == j) {
                 if(int mat[i][j] > a);
                     a = mat[i][j]
