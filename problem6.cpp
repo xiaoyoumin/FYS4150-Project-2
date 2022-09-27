@@ -33,23 +33,35 @@ int calculate_eigenvectors(int n) {
 	//arma::mat A;
 	double h = 1.0 / n;
 	double h2 = 1.0 / (h*h);
-	arma::mat A = create_tridiagonal(n-1, -h2, 2 * h2, -h2);
-	double eps = 1E-8;
+	arma::mat A = create_tridiagonal(n-1, -1.0 / pow(h, 2), 2.0 / pow(h, 2), -1.0 / pow(h, 2));
+	double eps = pow(10, -8);
 	arma::vec eigenvalues;
 	arma::mat eigenvectors;
 	int iterations;
 	bool converged;
-	A.print();
-	jacobi_eigensolver(A, eps, eigenvalues, eigenvectors, n*n, iterations, converged);
-	eigenvectors.print("eigenvectors:");
+	//A.print();
+	jacobi_eigensolver(A, eps, eigenvalues, eigenvectors, n*n*n, iterations, converged);
+	//eigenvectors.print("eigenvectors:");
+	//eigenvalues.print("eigenvalues:");
+	//std::cout << eigenvalues.index_min();
+	arma::mat out;
 
-	write_to_file(eigenvectors, "eigenvectors_" + std::to_string(n), 3);
+	out.insert_cols(0, eigenvectors.col(eigenvalues.index_min()));
+	eigenvalues(eigenvalues.index_min()) = n * n*n;
+	out.insert_cols(1, eigenvectors.col(eigenvalues.index_min()));
+	eigenvalues(eigenvalues.index_min()) = n * n*n;
+	out.insert_cols(2, eigenvectors.col(eigenvalues.index_min()));
+	eigenvalues(eigenvalues.index_min()) = n * n*n;
+
+	out.save("eigenvectors_" + std::to_string(n) + ".txt", arma::raw_ascii);
+
+	//write_to_file(eigenvectors, "eigenvectors_" + std::to_string(n), 3);
 	return 0;
 }
 
 int main() {
 	//perform the cases for n = 10 and n = 100
 	calculate_eigenvectors(10);
-	//calculate_eigenvectors(100);
+	calculate_eigenvectors(100);
 	return 0;
 }
