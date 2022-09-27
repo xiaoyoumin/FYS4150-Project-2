@@ -6,10 +6,14 @@ using namespace std;
 
 //add any other libraries we need
 
-double offdiag(mat& A, int& p, int& q, int N); //declare+import our function from proble3.cpp
+double offdiag(mat& A, int& p, int& q, int N);      //declare+import our function from proble3.cpp
 
 int main(){
-    //we want to create and fill our matrices
+                                                
+    arma::mat A = arma::mat(N, N).randn();          //we want to create and fill our matrices using randn
+    A = arma::symmatu(A);                           // make the matrix symmetrical by reflecting the upper triangle down to the lower triangle
+    
+    //create a for loop to iterate through different N sizes?
 }
 
 
