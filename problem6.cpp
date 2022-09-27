@@ -5,28 +5,9 @@
 #include <fstream>
 #include <experimental/filesystem>
 
-#include "EigSym_JcbAgrm.h"
+#include "JCB_rota_Algr\EigSym_JcbAgrm.h"
 namespace fs = std::experimental::filesystem;
 
-void write_to_file(arma::mat& matrix, std::string filename, int nvectors) {
-	//make the output directory if it doesn't exist yet
-	fs::create_directories("./output");
-	//open the file
-	std::ofstream file;
-	file.open("output/" + filename + ".txt", std::ios::trunc);
-	//make a header with the numer of columns and rows
-	file << nvectors << "\t" << matrix.n_rows;
-	//write the data
-	for (int i = 0; i < matrix.n_rows; i++)
-	{
-		for (int j = 0; j < nvectors - 1; j++)
-		{
-			file << matrix[i, j] << "\t";
-		}
-		file << matrix[i, nvectors - 1] << "\n";
-	}
-	file.close();
-}
 
 int calculate_eigenvectors(int n) {
 	//Do the calculations and write the results to a file
@@ -45,17 +26,23 @@ int calculate_eigenvectors(int n) {
 	//eigenvalues.print("eigenvalues:");
 	//std::cout << eigenvalues.index_min();
 	arma::mat out;
+	arma::vec eigv(3);
 
 	out.insert_cols(0, eigenvectors.col(eigenvalues.index_min()));
+	eigv(0) = eigenvalues.min();
 	eigenvalues(eigenvalues.index_min()) = n * n*n;
+
 	out.insert_cols(1, eigenvectors.col(eigenvalues.index_min()));
+	eigv(1) = eigenvalues.min();
 	eigenvalues(eigenvalues.index_min()) = n * n*n;
+
 	out.insert_cols(2, eigenvectors.col(eigenvalues.index_min()));
+	eigv(2) = eigenvalues.min();
 	eigenvalues(eigenvalues.index_min()) = n * n*n;
 
 	out.save("eigenvectors_" + std::to_string(n) + ".txt", arma::raw_ascii);
+	eigv.save("eigenvalues_" + std::to_string(n) + ".txt", arma::raw_ascii);
 
-	//write_to_file(eigenvectors, "eigenvectors_" + std::to_string(n), 3);
 	return 0;
 }
 
